@@ -2,6 +2,7 @@
  var fs = require('fs'),
  request = require('request');
 
+
  var download = function(uri, filename, callback){
  request.head(uri, function(err, res, body){
  console.log('content-type:', res.headers['content-type']);
@@ -11,4 +12,12 @@
  });
 };
 
-download
+xml2js = require('xml2js');
+
+var parser = new xml2js.Parser();
+fs.readFile(__dirname + '/foo.xml', function(err, data) {
+    parser.parseString(data, function (err, result) {
+        console.dir(result);
+        console.log('Done');
+    });
+});
